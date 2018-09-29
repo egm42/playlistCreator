@@ -3,7 +3,6 @@ import xml.etree.cElementTree as ET
 import os.path
 
 class playlistCreator:
-
     table = pd.DataFrame()
     url = ''
     desc = ''
@@ -25,18 +24,17 @@ class playlistCreator:
         return 0
 
     def xspfPlaylist(self, name):
-        root = ET.Element('?xml version="1.0" encoding="UTF-8"?')
-
-        playlist = ET.SubElement(root, 'playlist', version='1', xmlns='http://xspf.org/ns/o/')
+        playlist = ET.Element('playlist', version='1', xmlns='http://xspf.org/ns/o/')
         ET.SubElement(playlist, 'title').text = name
         trackList = ET.SubElement(playlist, 'trackList')
 
         for index, row in self.table.iterrows():
             track = ET.SubElement(trackList, 'track')
+            ET.SubElement(track, 'title')
             ET.SubElement(track, 'title').text = row[self.desc]
             ET.SubElement(track, 'location').text = row[self.url]
 
-        tree = ET.ElementTree(root)
+        tree = ET.ElementTree(playlist)
         return tree
 
     def vlcPlaylist(self):
