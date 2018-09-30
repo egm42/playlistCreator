@@ -5,10 +5,8 @@ import os.path
 if __name__ == '__main__':
     filepath = input('Enter full filepath: ')
     name = input('Enter playlist name: ')
+    directory = input('Enter folder to save file: ')
 
     pc.tableFromFile(pc, filepath, 'url', 'desc')
-    xml = pc.xspfPlaylist(pc, name)
-
-    newFilepath = os.path.join(os.path.dirname(filepath),name + '.xspf')
-    xml.write(newFilepath, encoding='UTf-8', xml_declaration=True)
-    print('Playlist saved as: ' + newFilepath)
+    pc.xspfPlaylist(pc, name)
+    pc.saveToFile(pc, directory, name)

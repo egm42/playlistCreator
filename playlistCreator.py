@@ -3,14 +3,14 @@ import xml.etree.cElementTree as ET
 import os.path
 
 class playlistCreator:
-    table = pd.DataFrame()
-    url = ''
-    desc = ''
 
     def __init__(self):
         self
 
     def tableFromFile(self, filepath, url, description):
+        self.url = url
+        self.desc = description
+
         extension = os.path.splitext(filepath)[1]
         if extension == '.csv':
             self.table = pd.read_csv(filepath)
@@ -18,15 +18,13 @@ class playlistCreator:
             self.table = pd.read_excel(filepath)
         else:
             pass
-        self.url = url
-        self.desc = description
 
         return 0
 
     def xspfPlaylist(self, name):
-        playlist = ET.Element('playlist', version='1', xmlns='http://xspf.org/ns/o/')
-        ET.SubElement(playlist, 'title').text = name
-        trackList = ET.SubElement(playlist, 'trackList')
+        root = ET.Element('playlist', version='1', xmlns='http://xspf.org/ns/o/')
+        ET.SubElement(root, 'title').text = name
+        trackList = ET.SubElement(root, 'trackList')
 
         for index, row in self.table.iterrows():
             track = ET.SubElement(trackList, 'track')
@@ -34,8 +32,16 @@ class playlistCreator:
             ET.SubElement(track, 'title').text = row[self.desc]
             ET.SubElement(track, 'location').text = row[self.url]
 
-        tree = ET.ElementTree(playlist)
-        return tree
+        self.xmlTree = ET.ElementTree(root)
+
+        return 0
 
     def vlcPlaylist(self):
         pass
+
+    def saveToFile(self, directory, name):
+        filepath = os.path.join(directory, name + '.xspf')
+
+        self.xmlTree.write(filepath, encoding='UTf-8', xml_declaration=True)
+
+        return 0
