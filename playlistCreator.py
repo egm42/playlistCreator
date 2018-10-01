@@ -7,7 +7,10 @@ class playlistCreator:
     def __init__(self):
         self
 
-    def tableFromFile(self, filepath):
+    def tableFromFile(self, filepath, url, description):
+        self.url = url
+        self.desc = description
+
         extension = os.path.splitext(filepath)[1]
         if extension == '.csv':
             self.table = pd.read_csv(filepath)
@@ -15,16 +18,6 @@ class playlistCreator:
             self.table = pd.read_excel(filepath)
         else:
             pass
-
-        return 0
-
-    def setColumns(self):
-        header = list(self.table)
-        for index, head in enumerate(header):
-            print(str(index + 1) + '. ' + head)
-
-        self.url = header[int(input('Select column containing URL(enter #): ')) - 1]
-        self.desc = header[int(input('Select column containing Description(enter #): ')) - 1]
 
         return 0
 
@@ -43,13 +36,8 @@ class playlistCreator:
 
         return 0
 
-    # def vlcPlaylist(self):
-    #     playlist = "#EXTM3U\n\n"
-    #     for index, row in self.table.iterrows():
-    #         playlist += "#EXTINF: , " + row[self.desc] + "\n"
-    #         playlist += row[self.url] + "\n\n"
-    #
-    #     return 0
+    def vlcPlaylist(self):
+        pass
 
     def saveToFile(self, directory, name):
         filepath = os.path.join(directory, name + '.xspf')
