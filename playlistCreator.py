@@ -4,8 +4,8 @@ import os.path
 
 class playlistCreator:
 
-    def __init__(self):
-        self
+    # def __init__(self):
+    #     self
 
     def tableFromFile(self, filepath):
         extension = os.path.splitext(filepath)[1]
@@ -20,11 +20,21 @@ class playlistCreator:
 
     def setColumns(self):
         header = list(self.table)
-        for index, head in enumerate(header):
-            print(str(index + 1) + '. ' + head)
 
-        self.url = header[int(input('Select column containing URL(enter #): ')) - 1]
-        self.desc = header[int(input('Select column containing Description(enter #): ')) - 1]
+        while True:
+            for index, head in enumerate(header):
+                print(str(index + 1) + '. ' + head)
+            try:
+                urlInt = int(input('Select column containing URL(enter #): '))
+                descInt = int(input('Select column containing Description(enter #): '))
+                self.url = header[urlInt - 1]
+                self.desc = header[descInt - 1]
+            except ValueError:
+                print('Values entered are not integers. Retry input.')
+            except IndexError:
+                print('Values entered are out of range. Retry input.')
+            else:
+                break
 
         return 0
 
