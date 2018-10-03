@@ -68,10 +68,14 @@ class playlistCreator:
             filepath = os.path.join(directory, name + '.xspf')
             self.xspfPlaylist(self, name)
             self.xmlTree.write(filepath, encoding='UTf-8', xml_declaration=True)
+
+            print('Playlist saved as: ' + filepath)
         elif filetype == 'm3u':
             filepath = os.path.join(directory, name + '.m3u')
             self.m3uPlaylist(self)
             with open(filepath, 'w') as f:
                 f.write(self.playlistString)
+
+            print('Playlist saved as: ' + filepath)
 
         return 0

@@ -20,6 +20,7 @@ pandas
 #### Output Files
 ```
 .xspf
+.m3u
 ```
 Note: the xspfPlaylist function currently exports an xml tree. The test file saves it as a .xspf file.
 
@@ -33,11 +34,20 @@ Enter the full filepath and new playlist's name when prompted.
 ```
 Enter full filepath: {directory}\{file}.csv
 Enter playlist name: {name}
+1. xspf
+2. m3u
+Enter number of filetype desired: {1 or 2}
+Enter folder to save file: {directory}
+1. url       <--- example output
+2. desc      <--- example output
+Select column containing URL(enter #): {enter column #}
+Select column containing Description(enter #): {enter column #}
+
 ```
 
 A confirmation message will display if the program ran successfully. The new '.xspf' playlist will be saved in the same directory as the original file.
 ```
-Playlist saved as: {directory}\{name}.xspf
+Playlist saved as: {directory}\{name}.{xspf or m3u}
 ```
 
 ## Authors
