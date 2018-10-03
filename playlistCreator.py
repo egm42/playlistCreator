@@ -53,17 +53,25 @@ class playlistCreator:
 
         return 0
 
-    # def vlcPlaylist(self):
-    #     playlist = "#EXTM3U\n\n"
-    #     for index, row in self.table.iterrows():
-    #         playlist += "#EXTINF: , " + row[self.desc] + "\n"
-    #         playlist += row[self.url] + "\n\n"
-    #
-    #     return 0
+    def m3uPlaylist(self):
+        playlist = "#EXTM3U\n\n"
+        for index, row in self.table.iterrows():
+            playlist += "#EXTINF: , " + row[self.desc] + "\n"
+            playlist += row[self.url] + "\n\n"
 
-    def saveToFile(self, directory, name):
-        filepath = os.path.join(directory, name + '.xspf')
+        self.playlistString = playlist
 
-        self.xmlTree.write(filepath, encoding='UTf-8', xml_declaration=True)
+        return 0
+
+    def saveToFile(self, filetype, directory, name):
+        if filetype == 'xspf':
+            filepath = os.path.join(directory, name + '.xspf')
+            self.xspfPlaylist(self, name)
+            self.xmlTree.write(filepath, encoding='UTf-8', xml_declaration=True)
+        elif filetype == 'm3u':
+            filepath = os.path.join(directory, name + '.m3u')
+            self.m3uPlaylist(self)
+            with open(filepath, 'w') as f:
+                f.write(self.playlistString)
 
         return 0
