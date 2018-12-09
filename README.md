@@ -50,10 +50,6 @@ A confirmation message will display if the program ran successfully. The new '.x
 Playlist saved as: {directory}\{name}.{xspf or m3u}
 ```
 
-## Authors
-* **Luis Ruiz** - [playlistCreator](https://github.com/egm42/playlistCreator)
-
-
 ## License
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
 

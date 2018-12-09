@@ -4,9 +4,6 @@ import os.path
 
 class playlistCreator:
 
-    # def __init__(self):
-    #     self
-
     def tableFromFile(self, filepath):
         extension = os.path.splitext(filepath)[1]
         if extension == '.csv':
